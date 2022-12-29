@@ -1,0 +1,35 @@
+table {
+    width: 100%;
+
+    .mat-row {
+      cursor: pointer;
+    }
+
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+  }
+  
+  .selected {
+    font-weight: bold;
+    background-color: rgba(0, 53, 167, 0.26);
+  }
+
+
+}
+.form-view{
+  position: absolute;
+right: 0;
+top: 0;
+height: 100vh;
+width: 70%;
+max-width: 500px;
+.mat-form-field{
+  width: 100%;
+}
+}

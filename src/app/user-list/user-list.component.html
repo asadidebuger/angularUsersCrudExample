@@ -1,0 +1,67 @@
+
+<div class="grid-view">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+        <th mat-header-cell *matHeaderCellDef> {{col}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr #thisElement mat-row (click)="selectUser(row)" [class.selected]="selectedUser==row"  *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <button mat-raised-button color="accent" [disabled]="!profileForm.valid" style="margin: 5px;" (click)="createUser()">New User</button> 
+  </div>
+  <mat-card class="form-view" *ngIf="selectedUser">
+    <mat-card-title style="text-align: center;">
+      Edit {{selectedUser.name}}
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="profileForm"  (ngSubmit)="updateUser()">
+        <mat-form-field appearance="fill">
+          <mat-label>Full Name</mat-label>
+          <input type="text" matInput [formControl]="requiredFormControl" [errorStateMatcher]="matcher" placeholder="User Fullname"  formControlName="name">
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            Fullname is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput [formControl]="requiredFormControl" [errorStateMatcher]="matcher" placeholder="Username"  formControlName="username">
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. me@example.com" formControlName="email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Phone</mat-label>
+          <input type="tel" matInput [formControl]="requiredFormControl" [errorStateMatcher]="matcher" placeholder="Phone number" formControlName="phone">
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            Phone is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+     
+          <br>
+          <button mat-raised-button color="primary" [disabled]="!profileForm.valid" style="margin: 5px;" type="submit">Update</button> 
+          <button mat-raised-button color="error" [disabled]="!profileForm.valid" style="margin: 5px;" (click)="deleteUser()">Delete</button>
+          <button mat-raised-button color="error" [disabled]="!profileForm.valid" style="margin: 5px;" (click)="selectedUser=null">close</button>
+
+      </form>
+      
+    </mat-card-content>
+  </mat-card>
